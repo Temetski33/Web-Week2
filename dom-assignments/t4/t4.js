@@ -779,6 +779,7 @@ const calculateDistance = (x1, y1, x2, y2) => {
   return distance;
 };
 
+// Get position and display restaurants
 navigator.geolocation.getCurrentPosition(position => {
   const lat = position.coords.latitude;
   const lng = position.coords.longitude;
@@ -787,23 +788,26 @@ navigator.geolocation.getCurrentPosition(position => {
     const resLat = r.location.coordinates[0];
     const resLng = r.location.coordinates[1];
     const dist = calculateDistance(lat, lng, resLat, resLng);
-    console.log(dist);
+    r.__v = dist;
+
+    // Sort by distance
+    restaurants.sort((a, b) => a.__v - b.__v);
+
+    const table = document.querySelector('table');
+
+    // Loop through restaurants and add rows
+    restaurants.forEach(r => {
+      const row = document.createElement('tr');
+
+      const nameCell = document.createElement('td');
+      nameCell.textContent = r.name;
+
+      const addressCell = document.createElement('td');
+      addressCell.textContent = r.address;
+
+      row.appendChild(nameCell);
+      row.appendChild(addressCell);
+      table.appendChild(row);
+    });
   });
-});
-
-const table = document.querySelector('table');
-
-// Loop through restaurants and add rows
-restaurants.forEach(r => {
-  const row = document.createElement('tr');
-
-  const nameCell = document.createElement('td');
-  nameCell.textContent = r.name;
-
-  const addressCell = document.createElement('td');
-  addressCell.textContent = r.address;
-
-  row.appendChild(nameCell);
-  row.appendChild(addressCell);
-  table.appendChild(row);
 });
