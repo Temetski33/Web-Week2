@@ -771,3 +771,29 @@ const restaurants = [
 ];
 
 // your code here
+
+const calculateDistance = (x1, y1, x2, y2) => {
+  // Distance = √((x2 - x1)^2 + (y2 - y1)^2)
+
+  const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+  return distance;
+};
+
+
+
+const table = document.querySelector('table');
+
+// Loop through restaurants and add rows
+restaurants.forEach(r => {
+  const row = document.createElement('tr');
+
+  const nameCell = document.createElement('td');
+  nameCell.textContent = r.name;
+
+  const addressCell = document.createElement('td');
+  addressCell.textContent = r.address;
+
+  row.appendChild(nameCell);
+  row.appendChild(addressCell);
+  table.appendChild(row);
+});
