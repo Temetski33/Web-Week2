@@ -779,7 +779,17 @@ const calculateDistance = (x1, y1, x2, y2) => {
   return distance;
 };
 
+navigator.geolocation.getCurrentPosition(position => {
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
 
+  restaurants.forEach(r => {
+    const resLat = r.location.coordinates[0];
+    const resLng = r.location.coordinates[1];
+    const dist = calculateDistance(lat, lng, resLat, resLng);
+    console.log(dist);
+  });
+});
 
 const table = document.querySelector('table');
 
