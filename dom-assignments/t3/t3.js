@@ -3,6 +3,14 @@ const target = document.getElementById('target');
 let browserName = 'Unknown';
 let browserVersion = 'Unknown';
 
+let osName = 'Unknown';
+
+const screenWidth = screen.width;
+const screenHeighth = screen.height;
+
+const availableWidth = window.innerWidth;
+const availableHeighth = window.innerHeight;
+
 const userAgent = navigator.userAgent;
 
 if (userAgent.indexOf('Firefox') > -1) {
@@ -19,6 +27,27 @@ if (userAgent.indexOf('Firefox') > -1) {
   browserVersion = userAgent.match(/Version\/([0-9.]+)/)[1];
 }
 
+if (/Windows/.test(userAgent)) osName = 'Windows';
+else if (/Macintosh/.test(userAgent)) osName = 'MacOS';
+else if (/Linux/.test(userAgent)) osName = 'Linux';
+else if (/Android/.test(userAgent)) osName = 'Android';
+else if (/iPhone|iPad|iPod/.test(userAgent)) osName = 'iOS';
+
+target.insertAdjacentHTML(
+  'beforeend',
+  `<p>Browser: ${browserName}, ${browserVersion}</p>`
+);
+
+target.insertAdjacentHTML('beforeend', `<p>OS: ${osName}</p>`);
+
+target.insertAdjacentHTML(
+  'beforeend',
+  `<p>Screen size: ${screenWidth}x${screenHeighth}</p>`
+);
+
+target.insertAdjacentHTML(
+  'beforeend',
+  `<p>Available window size: ${availableWidth}x${availableHeighth}</p>`
+);
 
 
-target.insertAdjacentHTML('beforeend', `<p>Browser: ${browserName}, ${browserVersion}</p>`);
