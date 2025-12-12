@@ -11,6 +11,16 @@ const screenHeighth = screen.height;
 const availableWidth = window.innerWidth;
 const availableHeighth = window.innerHeight;
 
+const now = new Date();
+
+const formatter = new Intl.DateTimeFormat('fi-FI', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
 const userAgent = navigator.userAgent;
 
 if (userAgent.indexOf('Firefox') > -1) {
@@ -50,4 +60,7 @@ target.insertAdjacentHTML(
   `<p>Available window size: ${availableWidth}x${availableHeighth}</p>`
 );
 
-
+target.insertAdjacentHTML(
+  'beforeend',
+  `<p>Date and time: ${formatter.format(now)}</p>`
+);
