@@ -788,8 +788,21 @@ const addMarkers = restaurants => {
     const popupText = r.name + ' (' + r.company + ')';
     r._marker = L.marker([r.location.coordinates[1], r.location.coordinates[0]])
       .addTo(map)
-      .bindPopup(popupText);
+      .bindPopup(popupText)
+      .on('click', () => showInfo(r.name, r.address));
   });
+};
+
+// Function to add h3 and p elements
+const showInfo = (title, text) => {
+  document.querySelectorAll('h3, p').forEach(el => el.remove());
+  const h3 = document.createElement('h3');
+  h3.textContent = title;
+  const p = document.createElement('p');
+  p.textContent = text;
+  const mapEl = map.getContainer();
+  mapEl.insertAdjacentElement('afterend', p);
+  mapEl.insertAdjacentElement('afterend', h3);
 };
 
 addTiles();
