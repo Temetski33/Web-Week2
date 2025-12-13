@@ -26,5 +26,29 @@ td {
 }
 
 .highlight {
-  background-color: aquamarine;
+  background-color: #abd6f9;
+}
+
+dialog {
+  border-radius: 6px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+dialog p {
+  margin: 0 0 10px;
+}
+
+dialog button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #0078d7;
+  color: white;
+  cursor: pointer;
+}
+
+dialog button:hover {
+  background-color: #005a9e;
 }
