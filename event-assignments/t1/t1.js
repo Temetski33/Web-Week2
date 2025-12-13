@@ -34,7 +34,7 @@ const ul = document.querySelector('ul');
 let id = 1;
 todoList.forEach(todo => {
   let checked = '';
-  if ((todo.completed === true)) {
+  if (todo.completed === true) {
     checked = ' checked';
   }
 
@@ -44,4 +44,15 @@ todoList.forEach(todo => {
    <label for="todo-${id}">${todo.task}</label></li>`
   );
   id = id + 1;
+});
+
+// TODO CLEAN LOGS
+// Add event listeners
+document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+  cb.addEventListener('change', e => {
+    // Get the digit from checkbox id string
+    targetId = e.target.id.match(/\d+/)[0] - 1;
+    todoList[targetId].completed = e.target.checked;
+    console.log(todoList);
+  });
 });
