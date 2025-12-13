@@ -771,3 +771,23 @@ const restaurants = [
 ];
 
 // your code here
+
+// Sort by name
+restaurants.sort((a, b) => a.name.localeCompare(b.name));
+
+const table = document.querySelector('table');
+
+// Loop through restaurants and add rows
+restaurants.forEach(r => {
+  const row = document.createElement('tr');
+
+  const nameCell = document.createElement('td');
+  nameCell.textContent = r.name;
+
+  const addressCell = document.createElement('td');
+  addressCell.textContent = r.address;
+
+  row.appendChild(nameCell);
+  row.appendChild(addressCell);
+  table.appendChild(row);
+});
