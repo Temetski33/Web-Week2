@@ -50,32 +50,6 @@ todoList.forEach(todo => {
   id = id + 1;
 });
 
-// Add checkbox event listeners
-const addCheckboxListeners = () => {
-  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', e => {
-      const id = e.target.id.match(/\d+/)[0];
-
-      const todo = todoList.find(todo => todo.id == id);
-      if (todo) {
-        todo.completed = e.target.checked;
-      }
-
-      console.log(todoList);
-    });
-  });
-};
-
-// Add delete btn event listeners
-const addDeleleListeners = () => {
-  document.querySelectorAll('.delete-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const liId = e.target.id;
-      removeListItem(liId);
-    });
-  });
-};
-
 // Remove li item function
 const removeListItem = id => {
   const checkbox = document.querySelector(`#todo-${id}`);
@@ -101,8 +75,7 @@ const addItem = task => {
    <label for="todo-${id}">${task}</label>
    <button class="delete-btn" id="${id}">Del</button></li>`
   );
-  addCheckboxListeners();
-  addDeleleListeners();
+
   id = id + 1;
   console.log(todoList);
 };
@@ -125,5 +98,17 @@ form.addEventListener('submit', e => {
   form.reset();
 });
 
-addCheckboxListeners();
-addDeleleListeners();
+ul.addEventListener('change', e => {
+  if (e.target.type === 'checkbox') {
+    const id = e.target.id.match(/\d+/)[0];
+    const todo = todoList.find(todo => todo.id == id);
+    if (todo) todo.completed = e.target.checked;
+    console.log(todoList);
+  }
+});
+
+ul.addEventListener('click', e => {
+  if (e.target.classList.contains('delete-btn')) {
+    removeListItem(e.target.id);
+  }
+});
