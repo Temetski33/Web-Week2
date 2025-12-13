@@ -30,6 +30,9 @@ const todoList = [
 // add your code here
 
 const ul = document.querySelector('ul');
+const dialog = document.querySelector('dialog');
+const form = dialog.querySelector('form');
+const input = dialog.querySelector('input');
 
 let id = 1;
 todoList.forEach(todo => {
@@ -88,9 +91,7 @@ const removeListItem = id => {
 };
 
 // Add item function
-const addItem = () => {
-  const task = 'party';
-
+const addItem = task => {
   const todo = {id: id, task: task, completed: false};
   todoList.push(todo);
 
@@ -106,11 +107,22 @@ const addItem = () => {
   console.log(todoList);
 };
 
-// Add add btn event listeners
+// Open dialog on add button click
 document.querySelectorAll('.add-btn').forEach(btn => {
-  btn.addEventListener('click', e => {
-    addItem();
+  btn.addEventListener('click', () => {
+    input.value = '';
+    dialog.showModal();
   });
+});
+
+// Handle dialog submit
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const task = input.value.trim();
+  if (!task) return;
+  addItem(task);
+  dialog.close();
+  form.reset();
 });
 
 addCheckboxListeners();
