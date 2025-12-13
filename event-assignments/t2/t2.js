@@ -776,6 +776,7 @@ const restaurants = [
 restaurants.sort((a, b) => a.name.localeCompare(b.name));
 
 const table = document.querySelector('table');
+const dialog = document.querySelector('dialog');
 
 // Loop through restaurants and add rows
 restaurants.forEach(r => {
@@ -802,6 +803,31 @@ table.addEventListener('click', e => {
 
   // Add highlight
   row.classList.add('highlight');
-});
 
-// test for git shenanigans
+  // Get restaurant name from the row cells
+  const name = row.cells[0].textContent;
+
+  // Find restaurant from array
+  const restaurant = restaurants.find(r => r.name === name);
+
+  const address = restaurant.address;
+  const postalCode = restaurant.postalCode;
+  const city = restaurant.city;
+  const phone = restaurant.phone;
+  const company = restaurant.company;
+  // Fill dialog content
+  dialog.innerHTML = `
+    <form method="dialog">
+      <p><strong>${name}</strong></p>
+      <p>${address}</p>
+      <p>${postalCode}</p>
+      <p>${city}</p>
+      <p>${phone}</p>
+      <p>${company}</p>
+      <button>Close</button>
+    </form>
+  `;
+
+  // Open the dialog
+  dialog.showModal();
+});
