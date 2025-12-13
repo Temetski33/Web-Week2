@@ -48,43 +48,51 @@ todoList.forEach(todo => {
 });
 
 // Add checkbox event listeners
-document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-  cb.addEventListener('change', e => {
-    // Get the digit from checkbox id string
-    targetId = e.target.id.match(/\d+/)[0] - 1;
-    todoList[targetId].completed = e.target.checked;
-    console.log(todoList);
+const addCheckboxListeners = () => {
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const id = e.target.id.match(/\d+/)[0];
+
+      const todo = todoList.find(todo => todo.id == id);
+      if (todo) {
+        todo.completed = e.target.checked;
+      }
+
+      console.log(todoList);
+    });
   });
-});
-
-// Function for removing li item
-const removeListItem = id => {
-  // Find the checkbox with id
-  const checkbox = document.querySelector(`#todo-${id}`);
-
-  const liToRemove = checkbox.parentElement;
-  ul.removeChild(liToRemove);
-
-  delete todoList[id - 1];
-  console.log(todoList);
 };
 
 // Add delete btn event listeners
-document.querySelectorAll('.delete-btn').forEach(btn => {
-  btn.addEventListener('click', e => {
-    const liId = e.target.id;
-    removeListItem(liId);
+const addDeleleListeners = () => {
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const liId = e.target.id;
+      removeListItem(liId);
+    });
   });
-});
+};
 
-// Add item
+// Remove li item function
+const removeListItem = id => {
+  const checkbox = document.querySelector(`#todo-${id}`);
+  if (checkbox) {
+    const liToRemove = checkbox.parentElement;
+    ul.removeChild(liToRemove);
+  }
+  const index = todoList.findIndex(todo => todo.id == id);
+  if (index !== -1) {
+    todoList.splice(index, 1);
+  }
+  console.log(todoList);
+};
+
+// Add item function
 const addItem = () => {
   const task = 'party';
-  const id = todoList.length;
 
   const todo = {id: id, task: task, completed: false};
-  todoList.push(todo)
-  console.log(todoList)
+  todoList.push(todo);
 
   ul.insertAdjacentHTML(
     'beforeend',
@@ -92,12 +100,18 @@ const addItem = () => {
    <label for="todo-${id}">${task}</label>
    <button class="delete-btn" id="${id}">Del</button></li>`
   );
+  addCheckboxListeners();
+  addDeleleListeners();
+  id = id + 1;
+  console.log(todoList);
 };
 
 // Add add btn event listeners
 document.querySelectorAll('.add-btn').forEach(btn => {
   btn.addEventListener('click', e => {
     addItem();
-    console.log('add buttooon');
   });
 });
+
+addCheckboxListeners();
+addDeleleListeners();
