@@ -58,15 +58,15 @@ document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
 });
 
 // Function for removing li item
-const removeListItem = (id) => {
+const removeListItem = id => {
   // Find the checkbox with id
   const checkbox = document.querySelector(`#todo-${id}`);
 
   const liToRemove = checkbox.parentElement;
   ul.removeChild(liToRemove);
 
-  delete todoList[id-1]
-  console.log(todoList)
+  delete todoList[id - 1];
+  console.log(todoList);
 };
 
 // Add delete btn event listeners
@@ -74,5 +74,30 @@ document.querySelectorAll('.delete-btn').forEach(btn => {
   btn.addEventListener('click', e => {
     const liId = e.target.id;
     removeListItem(liId);
+  });
+});
+
+// Add item
+const addItem = () => {
+  const task = 'party';
+  const id = todoList.length;
+
+  const todo = {id: id, task: task, completed: false};
+  todoList.push(todo)
+  console.log(todoList)
+
+  ul.insertAdjacentHTML(
+    'beforeend',
+    `<li><input type="checkbox" id="todo-${id}">
+   <label for="todo-${id}">${task}</label>
+   <button class="delete-btn" id="${id}">Del</button></li>`
+  );
+};
+
+// Add add btn event listeners
+document.querySelectorAll('.add-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    addItem();
+    console.log('add buttooon');
   });
 });
