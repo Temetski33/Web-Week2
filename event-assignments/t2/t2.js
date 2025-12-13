@@ -791,3 +791,15 @@ restaurants.forEach(r => {
   row.appendChild(addressCell);
   table.appendChild(row);
 });
+
+// Add event listener for table
+table.addEventListener('click', e => {
+  const row = e.target.closest('tr');
+  if (!row) return;
+
+  // Remove other highlights
+  table.querySelectorAll('tr').forEach(r => r.classList.remove('highlight'));
+
+  // Add highlight
+  row.classList.add('highlight');
+});
