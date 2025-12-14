@@ -51,7 +51,7 @@ const displayRestaurants = async () => {
     table.appendChild(row);
 
     // Add event listener for table
-    table.addEventListener('click', e => {
+    table.addEventListener('click', async e => {
       const row = e.target.closest('tr');
       if (!row) return;
 
@@ -74,6 +74,12 @@ const displayRestaurants = async () => {
       const city = restaurant.city;
       const phone = restaurant.phone;
       const company = restaurant.company;
+
+      const menu = await getDailyMenu(restaurant._id);
+      if (menu.courses.length > 0) {
+        console.log(menu.courses[0].name);
+      }
+
       // Fill dialog content
       dialog.innerHTML = `
     <form method="dialog">
