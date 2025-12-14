@@ -1,4 +1,4 @@
-const getUsers = async () => {
+const createUser = async () => {
   try {
     const resp = await fetch(requestURL, {
       method: 'POST',
@@ -8,12 +8,12 @@ const getUsers = async () => {
       },
       body: JSON.stringify({
         name: 'John Doe',
-        job: 'Developer'
+        job: 'Developer',
       }),
     });
 
     const data = await resp.json();
-    return data;
+    console.log(data);
   } catch (err) {
     console.error('fetch failed:', err);
   }
@@ -21,4 +21,4 @@ const getUsers = async () => {
 
 const requestURL = 'https://reqres.in/api/users';
 
-getUsers(requestURL).then(user => console.log(user));
+createUser();
