@@ -49,39 +49,38 @@ const displayRestaurants = async () => {
     row.appendChild(nameCell);
     row.appendChild(addressCell);
     table.appendChild(row);
+  });
 
-    // Add event listener for table
-    table.addEventListener('click', async e => {
-      const row = e.target.closest('tr');
-      if (!row) return;
+  // Add event listener for table
+  table.addEventListener('click', async e => {
+    const row = e.target.closest('tr');
+    if (!row) return;
 
-      // Remove other highlights
-      table
-        .querySelectorAll('tr')
-        .forEach(r => r.classList.remove('highlight'));
+    // Remove other highlights
+    table.querySelectorAll('tr').forEach(r => r.classList.remove('highlight'));
 
-      // Add highlight
-      row.classList.add('highlight');
+    // Add highlight
+    row.classList.add('highlight');
 
-      // Get restaurant name from the row cells
-      const name = row.cells[0].textContent;
+    // Get restaurant name from the row cells
+    const name = row.cells[0].textContent;
 
-      // Find restaurant from array
-      const restaurant = restaurants.find(r => r.name === name);
+    // Find restaurant from array
+    const restaurant = restaurants.find(r => r.name === name);
 
-      const address = restaurant.address;
-      const postalCode = restaurant.postalCode;
-      const city = restaurant.city;
-      const phone = restaurant.phone;
-      const company = restaurant.company;
+    const address = restaurant.address;
+    const postalCode = restaurant.postalCode;
+    const city = restaurant.city;
+    const phone = restaurant.phone;
+    const company = restaurant.company;
 
-      const menu = await getDailyMenu(restaurant._id);
-      if (menu.courses.length > 0) {
-        console.log(menu.courses[0].name);
-      }
+    const menu = await getDailyMenu(restaurant._id);
+    if (menu.courses.length > 0) {
+      console.log(menu.courses[0].name);
+    }
 
-      // Fill dialog content
-      dialog.innerHTML = `
+    // Fill dialog content
+    dialog.innerHTML = `
     <form method="dialog">
       <p><strong>${name}</strong></p>
       <p>${address}</p>
@@ -93,9 +92,8 @@ const displayRestaurants = async () => {
     </form>
   `;
 
-      // Open the dialog
-      dialog.showModal();
-    });
+    // Open the dialog
+    dialog.showModal();
   });
 };
 
