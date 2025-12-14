@@ -74,10 +74,28 @@ const displayRestaurants = async () => {
     const phone = restaurant.phone;
     const company = restaurant.company;
 
+    // Fetch menu and add items to list
     const menu = await getDailyMenu(restaurant._id);
+    const menuList = [];
     if (menu.courses.length > 0) {
-      console.log(menu.courses[0].name);
+      menu.courses.forEach(item => {
+        let dietsText = item.diets;
+        if (!item.diets) {
+          dietsText = '';
+        }
+        let priceText = item.price;
+        if (!item.price) {
+          priceText = '';
+        }
+        const listText = `<p>${item.name} ${dietsText}</p><p><small>${priceText}</small></p>`;
+        menuList.push(listText);
+      });
     }
+
+    let menuTextContent = '';
+    menuList.forEach(item => {
+      menuTextContent = menuTextContent + item;
+    });
 
     // Fill dialog content
     dialog.innerHTML = `
@@ -88,6 +106,9 @@ const displayRestaurants = async () => {
       <p>${city}</p>
       <p>${phone}</p>
       <p>${company}</p>
+      <p>------------------------</p>
+      <p><strong>Daily menu:</strong><p>
+      <p>${menuTextContent}</p>
       <button>Close</button>
     </form>
   `;
