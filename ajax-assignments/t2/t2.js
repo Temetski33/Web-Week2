@@ -4,6 +4,7 @@ const createUser = async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        // Returns the json payload with a "real" free api key for my user but not this one.
         'x-api-key': 'reqres-free-v1',
       },
       body: JSON.stringify({
